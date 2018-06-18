@@ -38,6 +38,7 @@ class Gallery extends React.Component {
     }
   }
   handleClick(event, { index }) {
+    alert('test');
     const { photos, onClick } = this.props;
     onClick(event, {
       index,
