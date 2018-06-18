@@ -12,6 +12,8 @@ class Gallery extends React.Component {
     };
     this.handleResize = this.handleResize.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
 
     let that = this;
     // this is to fix non-ios browsers where a scrollbar isnt present before
@@ -61,7 +63,6 @@ class Gallery extends React.Component {
   
   
   handleMouseOut(event, { index }) {
-	    alert('test');
 	    const { photos, onMouseOut } = this.props;
 	    onMouseOut(event, {
 	      index,
