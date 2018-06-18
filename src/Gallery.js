@@ -47,12 +47,35 @@ class Gallery extends React.Component {
       next: photos[index + 1] || null,
     });
   }
+  
+  handleMouseOver(event, { index }) {
+	    alert('test');
+	    const { photos, onMouseOver } = this.props;
+	    onMouseOver(event, {
+	      index,
+	      photo: photos[index],
+	      previous: photos[index - 1] || null,
+	      next: photos[index + 1] || null,
+	    });
+  }
+  
+  
+  handleMouseOut(event, { index }) {
+	    alert('test');
+	    const { photos, onMouseOut } = this.props;
+	    onMouseOut(event, {
+	      index,
+	      photo: photos[index],
+	      previous: photos[index - 1] || null,
+	      next: photos[index + 1] || null,
+	    });
+}
 
   render() {
     const { ImageComponent = Photo } = this.props;
     // subtract 1 pixel because the browser may round up a pixel
     const width = this.state.containerWidth - 1;
-    const { photos, columns, margin, onClick } = this.props;
+    const { photos, columns, margin, onClick, onMouseOver, onMouseOut } = this.props;
     const thumbs = computeSizes({ width, columns, margin, photos });
     return (
       <div className="react-photo-gallery--gallery">
@@ -65,7 +88,9 @@ class Gallery extends React.Component {
                 margin={margin}
                 index={index}
                 photo={photo}
-                onClick={onClick ? this.handleClick : null}
+                onClick={onClick ? this.handleClick : null} 
+              onMouseOver={onMouseOver ? this.handleMouseOver : null} 
+              onMouseOut={onMouseOut ? this.handleMouseOver : null}
               />
             );
           })}
@@ -79,6 +104,8 @@ class Gallery extends React.Component {
 Gallery.propTypes = {
   photos: PropTypes.arrayOf(photoPropType).isRequired,
   onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
   columns: PropTypes.number,
   margin: PropTypes.number,
   ImageComponent: PropTypes.func,

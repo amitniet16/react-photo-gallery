@@ -232,7 +232,9 @@ var Photo = function Photo(_ref) {
   var index = _ref.index,
       onClick = _ref.onClick,
       photo = _ref.photo,
-      margin = _ref.margin;
+      margin = _ref.margin,
+      onMouseOver = _ref.onMouseOver,
+      onMouseOut = _ref.onMouseOut;
 
   var imgStyle = { display: 'block', float: 'left', margin: margin };
 
@@ -240,10 +242,18 @@ var Photo = function Photo(_ref) {
     onClick(event, { photo: photo, index: index });
   };
 
+  var handleMouseOver = function handleMouseOver(event) {
+    onMouseOver(event, { photo: photo, index: index });
+  };
+
+  var handleMouseOut = function handleMouseOut(event) {
+    onMouseOut(event, { photo: photo, index: index });
+  };
+
   return React.createElement('img', _extends({
     style: onClick ? _extends({}, imgStyle, imgWithClick) : imgStyle
   }, photo, {
-    onClick: onClick ? handleClick : null
+    onClick: onClick ? handleClick : null, onMouseOver: onMouseOver ? handleMouseOver : null, onMouseOut: onMouseOut ? handleMouseOut : null
   }));
 };
 
@@ -386,6 +396,40 @@ var Gallery = function (_React$Component) {
       });
     }
   }, {
+    key: 'handleMouseOver',
+    value: function handleMouseOver(event, _ref2) {
+      var index = _ref2.index;
+
+      alert('test');
+      var _props2 = this.props,
+          photos = _props2.photos,
+          onMouseOver = _props2.onMouseOver;
+
+      onMouseOver(event, {
+        index: index,
+        photo: photos[index],
+        previous: photos[index - 1] || null,
+        next: photos[index + 1] || null
+      });
+    }
+  }, {
+    key: 'handleMouseOut',
+    value: function handleMouseOut(event, _ref3) {
+      var index = _ref3.index;
+
+      alert('test');
+      var _props3 = this.props,
+          photos = _props3.photos,
+          onMouseOut = _props3.onMouseOut;
+
+      onMouseOut(event, {
+        index: index,
+        photo: photos[index],
+        previous: photos[index - 1] || null,
+        next: photos[index + 1] || null
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -395,11 +439,13 @@ var Gallery = function (_React$Component) {
       // subtract 1 pixel because the browser may round up a pixel
 
       var width = this.state.containerWidth - 1;
-      var _props2 = this.props,
-          photos = _props2.photos,
-          columns = _props2.columns,
-          margin = _props2.margin,
-          onClick = _props2.onClick;
+      var _props4 = this.props,
+          photos = _props4.photos,
+          columns = _props4.columns,
+          margin = _props4.margin,
+          onClick = _props4.onClick,
+          onMouseOver = _props4.onMouseOver,
+          onMouseOut = _props4.onMouseOut;
 
       var thumbs = computeSizes({ width: width, columns: columns, margin: margin, photos: photos });
       return React.createElement(
@@ -416,7 +462,9 @@ var Gallery = function (_React$Component) {
               margin: margin,
               index: index,
               photo: photo,
-              onClick: onClick ? _this2.handleClick : null
+              onClick: onClick ? _this2.handleClick : null,
+              onMouseOver: onMouseOver ? _this2.handleMouseOver : null,
+              onMouseOut: onMouseOut ? _this2.handleMouseOver : null
             });
           })
         ),
@@ -430,6 +478,8 @@ var Gallery = function (_React$Component) {
 Gallery.propTypes = {
   photos: PropTypes.arrayOf(photoPropType).isRequired,
   onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
   columns: PropTypes.number,
   margin: PropTypes.number,
   ImageComponent: PropTypes.func

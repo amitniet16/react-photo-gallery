@@ -3,18 +3,29 @@ import PropTypes from 'prop-types';
 
 const imgWithClick = { cursor: 'pointer' };
 
-const Photo = ({ index, onClick, photo, margin }) => {
+const Photo = ({ index, onClick, photo, margin,onMouseOver,onMouseOut }) => {
   const imgStyle = { display: 'block', float: 'left', margin: margin };
 
   const handleClick = event => {
     onClick(event, { photo, index });
   };
+  
+  const handleMouseOver = event => {
+	  onMouseOver(event, { photo, index });
+	  };
+	  
+	  
+  const handleMouseOut = event => {
+	  onMouseOut(event, { photo, index });
+  	};	  
+  
+  	
 
   return (
     <img
       style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
       {...photo}
-      onClick={onClick ? handleClick : null}
+      onClick={onClick ? handleClick : null} onMouseOver={onMouseOver ? handleMouseOver : null} onMouseOut={onMouseOut ? handleMouseOut : null}
     />
   );
 };
