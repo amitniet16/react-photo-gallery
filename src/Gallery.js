@@ -40,7 +40,7 @@ class Gallery extends React.Component {
     }
   }
   handleClick(event, { index }) {
-    alert('test');
+   // alert('test');
     const { photos, onClick } = this.props;
     onClick(event, {
       index,
@@ -51,7 +51,7 @@ class Gallery extends React.Component {
   }
   
   handleMouseOver(event, { index }) {
-	    alert('test');
+	  //  alert('test');
 	    const { photos, onMouseOver } = this.props;
 	    onMouseOver(event, {
 	      index,
