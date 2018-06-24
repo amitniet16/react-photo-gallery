@@ -385,7 +385,7 @@ var Gallery = function (_React$Component) {
     value: function handleClick(event, _ref) {
       var index = _ref.index;
 
-      alert('test');
+      // alert('test');
       var _props = this.props,
           photos = _props.photos,
           onClick = _props.onClick;
@@ -402,7 +402,7 @@ var Gallery = function (_React$Component) {
     value: function handleMouseOver(event, _ref2) {
       var index = _ref2.index;
 
-      alert('test');
+      //  alert('test');
       var _props2 = this.props,
           photos = _props2.photos,
           onMouseOver = _props2.onMouseOver;
